@@ -1,0 +1,1100 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Tarang - The Wave of Creativity</title>
+
+    <!-- CSS FILES -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100;200;400;700&display=swap" rel="stylesheet">
+
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="css/bootstrap-icons.css" rel="stylesheet">
+
+    <link href="css/templatemo-festava-live.css" rel="stylesheet">
+
+    <style>
+       :root {
+            --primary-blue: #0066cc;
+            --accent-orange: #ff6600;
+            --dark-bg: #0a192f;
+            --text-light: #f8f9fa;
+            --primary-color1: #2a2a72;
+            --accent-color1: #ff6b6b;
+            --bg-color1: #f8f9fa;
+        }
+
+        .schedule-section {
+            padding: 4rem 2rem;
+            background: var(--dark-bg);
+            color: var(--text-light);
+        }
+
+        .schedule-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .schedule-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .schedule-tab {
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .schedule-tab.active {
+            background: var(--accent-orange);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 15px rgba(255, 102, 0, 0.3);
+        }
+
+        .schedule-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .day-schedule {
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .day-schedule.active {
+            display: grid;
+        }
+
+        .time-slot {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border-left: 4px solid var(--primary-blue);
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+
+        .time-slot:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .time-range {
+            color: var(--accent-orange);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .event-title {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .event-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .venue-info {
+            text-align: center;
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .schedule-tabs {
+                flex-direction: column;
+            }
+            
+            .schedule-tab {
+                width: 100%;
+            }
+            
+            .day-schedule {
+                grid-template-columns: 1fr;
+            }
+        }
+        .team-section {
+            padding: 4rem 2rem;
+            background: var(--bg-color1);
+            font-family: 'Arial', sans-serif;
+        }
+
+        .team-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .team-tab {
+            padding: 1rem 2rem;
+            border: none;
+            background: #e0e0e0;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-weight: 600;
+        }
+
+        .team-tab.active {
+            background: var(--primary-color1);
+            color: white;
+            box-shadow: 0 4px 15px rgba(42, 42, 114, 0.3);
+        }
+
+        .team-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* Core Team Grid */
+        .core-grid {
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .core-member {
+            text-align: center;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .core-member:hover {
+            transform: translateY(-5px);
+        }
+
+        .member-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border: 3px solid var(--primary-color1);
+        }
+
+        /* Executive List */
+        .executive-list {
+            display: none;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            padding: 1rem;
+        }
+
+        .executive-item {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .active-content {
+            display: grid;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            .core-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .team-tab {
+                padding: 0.8rem 1.5rem;
+            }
+        }
+        
+    .sponsor-section {
+      text-align: center;
+      padding: 60px 20px;
+      background: #ffffff;
+    }
+
+    .sponsor-section h2 {
+      font-size: 2.5rem;
+      margin-bottom: 30px;
+      color: #333;
+    }
+
+    .sponsor-logos {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 30px;
+    }
+
+    .sponsor-logos img {
+      height: 80px;
+      max-width: 180px;
+      object-fit: contain;
+      transition: transform 0.3s ease, filter 0.3s ease;
+      filter: grayscale(100%);
+    }
+
+    .sponsor-logos img:hover {
+      transform: scale(1.1);
+      filter: grayscale(0%);
+    }
+
+    @media (max-width: 600px) {
+      .sponsor-logos img {
+        height: 60px;
+      }
+    }
+    </style>
+</head>
+
+<body>
+
+    <main>
+
+        <header class="site-header">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-12 col-12 d-flex flex-wrap">
+                        <p class="d-flex me-4 mb-0">
+                            <i class="bi-person custom-icon me-2"></i>
+                            <strong class="text-dark">Tarang - The Wave of Creativity</strong>
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+        </header>
+
+
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="index.html">
+                    MDC
+                </a>
+
+                <a href="#" class="btn custom-btn d-lg-none ms-auto me-4">Buy Ticket</a>
+
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                    aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav align-items-lg-center ms-auto me-lg-5">
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#section_1">Home</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#section_2">About</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#section_3">Artists</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#section_4">Schedule</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#section_5">Ticket</a>
+                        </li>
+                        
+<li class="nav-item">
+    <a class="nav-link click-scroll" href="#team">Team</a>
+</li>
+
+                        <li class="nav-item">
+                            <a class="nav-link click-scroll" href="#section_7">Contact</a>
+                        </li>
+                    </ul>
+
+                    <a href="#" class="btn custom-btn d-lg-block d-none">Buy Ticket</a>
+                </div>
+            </div>
+        </nav>
+
+
+        <section class="hero-section" id="section_1">
+            <div class="section-overlay"></div>
+
+            <div class="container d-flex justify-content-center align-items-center">
+                <div class="row">
+
+                    <div class="col-12 mt-auto mb-5 text-center">
+                        <small>MDC Presents</small>
+
+                        <h1 class="text-white mb-5">Tarang, 2025</h1>
+
+                        <a class="btn custom-btn smoothscroll" href="#section_2">Let's begin</a>
+                    </div>
+
+                    <div class="col-lg-12 col-12 mt-auto d-flex flex-column flex-lg-row text-center">
+                        <div class="date-wrap">
+                            <h5 class="text-white">
+                                <i class="custom-icon bi-clock me-2"></i>
+                                9 - 11<sup>th</sup>, Sept 2025
+                            </h5>
+                        </div>
+
+                        <div class="location-wrap mx-auto py-3 py-lg-0">
+                            <h5 class="text-white">
+                                <i class="custom-icon bi-geo-alt me-2"></i>
+                                Woxsen University, Hyderabad
+                            </h5>
+                        </div>
+
+                        <div class="social-share">
+                            <ul class="social-icon d-flex align-items-center justify-content-center">
+                                <span class="text-white me-3">Share:</span>
+
+                                <li class="social-icon-item">
+                                    <a href="#" class="social-icon-link">
+                                        <span class="bi-facebook"></span>
+                                    </a>
+                                </li>
+
+                                <li class="social-icon-item">
+                                    <a href="#" class="social-icon-link">
+                                        <span class="bi-twitter"></span>
+                                    </a>
+                                </li>
+
+                                <li class="social-icon-item">
+                                    <a href="#" class="social-icon-link">
+                                        <span class="bi-instagram"></span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="video-wrap">
+                <video autoplay="" loop="" muted="" class="custom-video" poster="">
+                    <source src="video/pexels-2022395.mp4" type="video/mp4">
+
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+        </section>
+
+
+        <section class="about-section section-padding" id="section_2">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-6 col-12 mb-4 mb-lg-0 d-flex align-items-center">
+                        <div class="services-info">
+                            <h2 class="text-white mb-4">About Tarang 2025</h2>
+
+                            <p class="text-white">
+                                - 1st Edition of Tarang Fest – A celebration of  talent,
+                                innovation, and culture.  <br>
+                               - Happening mid September 2025.<br>
+                               - Marks the beginning of a new legacy at Woxsen University. <br> 
+                              - Bringing together dynamic and creative minds* from multiple
+                                colleges.  <br>
+                              - An unparalleled experience of collaboration, networking, and
+                                artistic expression. </p>
+
+                            <h6 class="text-white mt-4">Once in Lifetime Experience</h6>
+
+                            <p class="text-white">
+                                
+                                  - Competitions – Cultural, creative, and skill-based events
+                                        showcasing talent and ingenuity.<br>
+                                 - Live Performances – Electrifying acts by top artists, leaving
+                                        the audience spellbound. <br>
+                                   -  Auto Expo – A grand display of automotive excellence,
+                                        captivating auto enthusiasts and trendsetters.
+
+                            </p>
+
+
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6 col-12">
+                        <div class="about-text-wrap">
+                            <img src="https://media.licdn.com/dms/image/v2/D4D22AQHSlUv6T0ftVw/feedshare-shrink_800/B4DZakR_TWH0Ag-/0/1746512902831?e=1749686400&v=beta&t=bsU_SSikT8GguYpJ9AlMkYe0vQ7SyCnwWrWj9MrIQ9Q" class="about-image img-fluid">
+
+                            <div class="about-text-info d-flex">
+                                <div class="d-flex">
+                                    <i class="about-text-icon bi-person"></i>
+                                </div>
+
+
+                                <div class="ms-4">
+                                    <h3>a happy moment</h3>
+
+                                    <p class="mb-0">your amazing festival experience with us</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <section class="artists-section section-padding" id="section_3">
+            <div class="container">
+                <div class="row justify-content-center">
+
+                    <div class="col-12 text-center">
+                        <h2 class="mb-4">Major Events</h1>
+                    </div>
+
+                    <div class="col-lg-5 col-12">
+                        <div class="artists-thumb">
+                            <div class="artists-image-wrap">
+                                <img src="images/infinity.png"
+                                    class="artists-image img-fluid">
+                            </div>
+
+                            <div class="artists-hover">
+                                <p>
+                                    <strong>Name:</strong>
+                                    DJ Night
+                                </p>
+
+                                <p>
+                                    <strong>Date:</strong>
+                                    11th Sept, 2025
+                                </p>
+
+                                <p>
+                                    <strong>Artist:</strong>
+                                    ABC
+                                </p>
+
+                                <hr>
+
+                                <!-- <p class="mb-0">
+                                    <strong>Anything:</strong>
+                                    <a href="#">Madona Official</a>
+                                </p> -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-5 col-12">
+                        <div class="artists-thumb">
+                            <div class="artists-image-wrap">
+                                <img src="https://media.licdn.com/dms/image/v2/D4D22AQEtlHUtFf1NBQ/feedshare-shrink_2048_1536/B4DZSdOHKjG4Ao-/0/1737804516576?e=1749686400&v=beta&t=9-deDlLltlv1rlPbtQl_VVu2CzXJ5c-iKbp7o2Hxrq8"
+                                    class="artists-image img-fluid">
+                            </div>
+
+                            <div class="artists-hover">
+                                <p>
+                                    <strong>Name:</strong>
+                                    Movie Night
+                                </p>
+
+                                <p>
+                                    <strong>Date:</strong>
+                                    10th Sept, 2025
+                                </p>
+
+                                <p>
+                                    <strong>Movie:</strong>
+                                    Harry Potter
+                                </p>
+
+                                <hr>
+
+                                <!-- <p class="mb-0">
+                                    <strong>Youtube Channel:</strong>
+                                    <a href="#">Rihana Official</a>
+                                </p> -->
+                            </div>
+                        </div>
+
+                        <div class="artists-thumb">
+                            <img src="https://media.licdn.com/dms/image/v2/D4D22AQGbrgi0eQ5_Gw/feedshare-shrink_2048_1536/B4DZSdOHJ0H0Ao-/0/1737804519283?e=1749686400&v=beta&t=IFSQPBgBsLvMEYuOFiLi-mQXYccrx71haQVvgDuayUY"
+                                class="artists-image img-fluid">
+
+                            <div class="artists-hover">
+                                <p>
+                                    <strong>Name:</strong>
+                                    Competiton
+                                </p>
+
+                                <p>
+                                    <strong>Date:</strong>
+                                    9th Sept, 2025
+                                </p>
+
+                                <!-- <p>
+                                    <strong>Music:</strong>
+                                    Pop
+                                </p> -->
+
+                                <hr>
+
+                                <!-- <p class="mb-0">
+                                    <strong>Youtube Channel:</strong>
+                                    <a href="#">Bruno Official</a>
+                                </p> -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <section class="schedule-section section-padding" id="section_4">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-12 text-center">
+                        <h2 class="text-white mb-4">Event Schedule</h1>
+
+                            <div class="schedule-tabs">
+                                <button class="schedule-tab active" data-day="day1">Day 1 - Ignition</button>
+                                <button class="schedule-tab" data-day="day2">Day 2 - Ascension</button>
+                                <button class="schedule-tab" data-day="day3">Day 3 - Finale</button>
+                            </div>
+                    
+                            <div class="schedule-content">
+                                <!-- Day 1 Schedule -->
+                                <div class="day-schedule active" id="day1">
+                                    <div class="time-slot">
+                                        <div class="time-range">10:00 AM - 11:00 AM</div>
+                                        <div class="event-title">Grand Opening Ceremony</div>
+                                        <div class="event-description">Inauguration of Tarang Fest 2025</div>
+                                    </div>
+                    
+                                    <div class="time-slot">
+                                        <div class="time-range">10:00 AM - 10:00 PM</div>
+                                        <div class="event-title">Food Stalls & Arcade</div>
+                                        <div class="event-description">Various cuisines and gaming stations</div>
+                                    </div>
+                    
+                                    <div class="time-slot">
+                                        <div class="time-range">12:00 PM - 02:00 PM</div>
+                                        <div class="event-title">Creative Challenge 1</div>
+                                        <div class="event-description">Inter-college competition round</div>
+                                    </div>
+                    
+                                    <div class="time-slot">
+                                        <div class="time-range">05:00 PM - 06:00 PM</div>
+                                        <div class="event-title">Skill Challenge 2</div>
+                                        <div class="event-description">Technical and cultural events</div>
+                                    </div>
+                    
+                                    <div class="time-slot">
+                                        <div class="time-range">08:00 PM - 12:00 AM</div>
+                                        <div class="event-title">Music Show & Standup</div>
+                                        <div class="event-description">Live performances and comedy acts</div>
+                                    </div>
+                    
+                                    <div class="venue-info">
+                                        <h3>Venue</h3>
+                                        <p>Main Auditorium & Campus Grounds</p>
+                                    </div>
+                                </div>
+                    
+                                <!-- Day 2 Schedule -->
+                                <div class="day-schedule" id="day2">
+                                    <div class="time-slot">
+                                        <div class="time-range">10:00 AM - 10:00 PM</div>
+                                        <div class="event-title">Food Stalls & Games</div>
+                                        <div class="event-description">Continuing culinary and gaming experiences</div>
+                                    </div>
+                    
+                                    <div class="time-slot">
+                                        <div class="time-range">11:00 AM - 12:00 PM</div>
+                                        <div class="event-title">Marketing Workshop 1</div>
+                                        <div class="event-description">Digital marketing strategies</div>
+                                    </div>
+                    
+                                    <div class="time-slot">
+                                        <div class="time-range">06:00 PM - 08:00 PM</div>
+                                        <div class="event-title">Auto Ramp Walk</div>
+                                        <div class="event-description">Automotive showcase and competition</div>
+                                    </div>
+                    
+                                    <div class="time-slot">
+                                        <div class="time-range">08:00 PM - 12:00 AM</div>
+                                        <div class="event-title">Movie Under the Stars</div>
+                                        <div class="event-description">Outdoor cinema experience</div>
+                                    </div>
+                    
+                                    <div class="venue-info">
+                                        <h3>Venue</h3>
+                                        <p>University Stadium & Outdoor Arena</p>
+                                    </div>
+                                </div>
+                    
+                                <!-- Day 3 Schedule -->
+                                <div class="day-schedule" id="day3">
+                                    <div class="time-slot">
+                                        <div class="time-range">10:00 AM - 10:00 PM</div>
+                                        <div class="event-title">Final Day Festivities</div>
+                                        <div class="event-description">Food and games continue</div>
+                                    </div>
+                    
+                                    <div class="time-slot">
+                                        <div class="time-range">11:00 AM - 12:00 PM</div>
+                                        <div class="event-title">Leadership Workshop</div>
+                                        <div class="event-description">Industry expert session</div>
+                                    </div>
+                    
+                                    <div class="time-slot">
+                                        <div class="time-range">06:00 PM - 08:00 PM</div>
+                                        <div class="event-title">Influencer Summit</div>
+                                        <div class="event-description">Digital creators meetup</div>
+                                    </div>
+                    
+                                    <div class="time-slot">
+                                        <div class="time-range">09:00 PM - 12:00 AM</div>
+                                        <div class="event-title">Grand Finale Concert</div>
+                                        <div class="event-description">Featuring top artists and DJ night</div>
+                                    </div>
+                    
+                                    <div class="venue-info">
+                                        <h3>Venue</h3>
+                                        <p>Main Grounds & Concert Arena</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    
+                        <script>
+                            // Schedule Tab Functionality
+                            const tabs = document.querySelectorAll('.schedule-tab');
+                            const schedules = document.querySelectorAll('.day-schedule');
+                    
+                            tabs.forEach(tab => {
+                                tab.addEventListener('click', () => {
+                                    // Remove active classes
+                                    tabs.forEach(t => t.classList.remove('active'));
+                                    schedules.forEach(schedule => schedule.classList.remove('active'));
+                    
+                                    // Add active classes
+                                    tab.classList.add('active');
+                                    const targetDay = document.getElementById(tab.dataset.day);
+                                    targetDay.classList.add('active');
+                                });
+                            });
+                    
+                            // Hover effects for time slots
+                            document.querySelectorAll('.time-slot').forEach(slot => {
+                                slot.addEventListener('mouseenter', () => {
+                                    slot.style.transform = 'translateY(-5px)';
+                                });
+                                
+                                slot.addEventListener('mouseleave', () => {
+                                    slot.style.transform = 'translateY(0)';
+                                });
+                            });
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <section class="pricing-section section-padding section-bg" id="section_5">
+            <div class="container">
+                <div class="row">
+<center>
+                    <div class="col-lg-8 col-12 mx-auto">
+                        <h2 class="text-center mb-4">Plans, you' love</h2>
+                    </div>
+
+                    <div class="col-lg-6 col-12">
+                        <div class="pricing-thumb">
+                            <div class="d-flex">
+                                <div>
+                                    <h3><small>Your Tickets</small> ₹499</h3>
+
+                                    <p>Including good things:</p>
+                                </div>
+
+                                <p class="pricing-tag ms-auto">Save up to <span>50%</span></h2>
+                            </div>
+
+                            <ul class="pricing-list mt-3">
+                                <li class="pricing-list-item">platform for potential customers</li>
+
+                                <li class="pricing-list-item">digital experience</li>
+
+                                <li class="pricing-list-item">high-quality sound</li>
+
+                                <li class="pricing-list-item">standard content</li>
+                            </ul>
+
+                            <a class="link-fx-1 color-contrast-higher mt-4" href="#">
+                                <span>Buy Ticket</span>
+                                <svg class="icon" viewBox="0 0 32 32" aria-hidden="true">
+                                    <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="16" cy="16" r="15.5"></circle>
+                                        <line x1="10" y1="18" x2="16" y2="12"></line>
+                                        <line x1="16" y1="12" x2="22" y2="18"></line>
+                                    </g>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+</center>
+                    
+
+                </div>
+            </div>
+        </section>
+
+        <section class="team-section" id="section_6">
+        <center>  <h1>Our Team</h1></center>
+            <div class="team-tabs">
+                <button class="team-tab active" data-team="core">Core Team</button>
+                <button class="team-tab" data-team="executive">Executive</button>
+            </div>
+    
+            <div class="team-content">
+                <!-- Core Team -->
+                <div class="core-grid" id="core">
+                    <div class="core-member">
+                        <img src="images/team/PrashantKhirwar_President.jpg" alt="PrashantKhirwar_President" class="member-image">
+                        <h3>Prashant Khirwar</h3>
+                        <p>President</p>
+                    </div>
+                    <div class="core-member">
+                        <img src="images/team/KratikaKhunteta_VicePresident.jpg" alt="KratikaKhunteta_VicePresident" class="member-image">
+                        <h3>Kratika Khunteta</h3>
+                        <p>Vice President</p>
+                    </div>
+                    <div class="core-member">
+                        <img src="images/team/SanskruthiReddy_Secretary.jpg" alt="SanskruthiReddy_Secretary" class="member-image">
+                        <h3>Sanskruthi Reddy</h3>
+                        <p>Secretary</p>
+                    </div>
+                    <div class="core-member">
+                        <img src="images/team/MLKSaiPavan_CreativeHead.jpg" alt="MLKSaiPavan_CreativeHead" class="member-image">
+                        <h3>MLK Sai Pavan</h3>
+                        <p>Creative Head</p>
+                    </div>
+                    <div class="core-member">
+                        <img src="images/team/VanshikaPrakash_DigitalHead.jpg" alt="VanshikaPrakash_DigitalHead" class="member-image">
+                        <h3>Vanshika Prakash</h3>
+                        <p>Digital Head</p>
+                    </div>
+                    <div class="core-member">
+                        <img src="images/team/UttamKumarDeb_OperationsHead.jpg" alt="UttamKumarDeb_OperationsHead" class="member-image">
+                        <h3>Uttam Kumar Deb</h3>
+                        <p>Operations Head</p>
+                    </div>
+                </div>
+    
+                <!-- Executive Team -->
+                <div class="executive-list" id="executive">
+                    <div class="executive-item">
+                        <h3>Gaurav Jain</h3>
+                        <p>Senior Executive</p>
+                    </div>
+                    <div class="executive-item">
+                        <h3>Rituraja Rai</h3>
+                        <p>Senior Executive</p>
+                    </div>
+                    <div class="executive-item">
+                        <h3>Yamin Aung</h3>
+                        <p>Senior Executive</p>
+                    </div>
+                    <div class="executive-item">
+                        <h3>Kisan K</h3>
+                        <p>Senior Executive</p>
+                    </div>
+                    <div class="executive-item">
+                        <h3>Sushritha Reddy</h3>
+                        <p>Senior Executive</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+        <section class="sponsor-section">
+            <h2>Our Proud Sponsors</h2>
+            <div class="sponsor-logos">
+              <img src="images/sponsor1.png" alt="Sponsor 1">
+              <img src="images/sponsor2.jpg" alt="Sponsor 2">
+              <!-- <img src="https://via.placeholder.com/150x80?text=Sponsor+3" alt="Sponsor 3">
+              <img src="https://via.placeholder.com/150x80?text=Sponsor+4" alt="Sponsor 4"> -->
+            </div>
+          </section>
+<hr>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const tabs = document.querySelectorAll('.team-tab');
+                const coreSection = document.getElementById('core');
+                const executiveSection = document.getElementById('executive');
+    
+                // Show core team by default
+                coreSection.classList.add('active-content');
+    
+                function switchTab(selectedTab) {
+                    // Remove active classes from all tabs
+                    tabs.forEach(tab => tab.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    selectedTab.classList.add('active');
+                    
+                    // Toggle visibility of sections
+                    if(selectedTab.dataset.team === 'core') {
+                        executiveSection.classList.remove('active-content');
+                        coreSection.classList.add('active-content');
+                    } else {
+                        coreSection.classList.remove('active-content');
+                        executiveSection.classList.add('active-content');
+                    }
+                }
+    
+                tabs.forEach(tab => {
+                    tab.addEventListener('click', () => switchTab(tab));
+                });
+            });
+        </script>
+
+        <section class="contact-section section-padding" id="section_7">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-8 col-12 mx-auto">
+                        <h2 class="text-center mb-4">Interested? Let's talk</h2>
+
+                        <nav class="d-flex justify-content-center">
+                            <div class="nav nav-tabs align-items-baseline justify-content-center" id="nav-tab"
+                                role="tablist">
+                                <button class="nav-link active" id="nav-ContactForm-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-ContactForm" type="button" role="tab"
+                                    aria-controls="nav-ContactForm" aria-selected="false">
+                                    <h5>Contact Form</h5>
+                                </button>
+
+                                <button class="nav-link" id="nav-ContactMap-tab" data-bs-toggle="tab"
+                                    data-bs-target="#nav-ContactMap" type="button" role="tab"
+                                    aria-controls="nav-ContactMap" aria-selected="false">
+                                    <h5>Google Maps</h5>
+                                </button>
+                            </div>
+                        </nav>
+
+                        <div class="tab-content shadow-lg mt-5" id="nav-tabContent">
+                            <div class="tab-pane fade show active" id="nav-ContactForm" role="tabpanel"
+                                aria-labelledby="nav-ContactForm-tab">
+                                <form class="custom-form contact-form mb-5 mb-lg-0" action="#" method="post"
+                                    role="form">
+                                    <div class="contact-form-body">
+                                        <div class="row">
+                                            <div class="col-lg-6 col-md-6 col-12">
+                                                <input type="text" name="contact-name" id="contact-name"
+                                                    class="form-control" placeholder="Full name" required>
+                                            </div>
+
+                                            <div class="col-lg-6 col-md-6 col-12">
+                                                <input type="email" name="contact-email" id="contact-email"
+                                                    pattern="[^ @]*@[^ @]*" class="form-control"
+                                                    placeholder="Email address" required>
+                                            </div>
+                                        </div>
+
+                                        <input type="text" name="contact-company" id="contact-company"
+                                            class="form-control" placeholder="Company" required>
+
+                                        <textarea name="contact-message" rows="3" class="form-control"
+                                            id="contact-message" placeholder="Message"></textarea>
+
+                                        <div class="col-lg-4 col-md-10 col-8 mx-auto">
+                                            <button type="submit" class="form-control">Send message</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="tab-pane fade" id="nav-ContactMap" role="tabpanel"
+                                aria-labelledby="nav-ContactMap-tab">
+                                <iframe class="google-map"
+                                src="https://www.google.com/maps/embed?pb=!1m28!1m12!1m3!1d15248.212201808739!2d77.79180471630177!3d17.64842741458814!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m13!3e0!4m5!1s0x3bc953239030af03%3A0xac86d2768937c20c!2sWoxsen%20School%20Of%20Business!3m2!1d17.646871!2d77.7995024!4m5!1s0x3bc9533c6aaaaaab%3A0x4f10ac8424d0d1dc!2sKamkole%2C%20Sadasivpet%2C%20Hyderabad%2C%20Telangana%20502345!3m2!1d17.649612!2d77.7997255!5e0!3m2!1sen!2sin!4v1714984091892!5m2!1sen!2sin" 
+                                width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                                    referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                <!-- You can easily copy the embed code from Google Maps -> Share -> Embed a map // -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <footer class="site-footer">
+        <div class="site-footer-top">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-6 col-12">
+                        <h2 class="text-white mb-lg-0">MDC</h2>
+                    </div>
+
+                    <div class="col-lg-6 col-12 d-flex justify-content-lg-end align-items-center">
+                        <ul class="social-icon d-flex justify-content-lg-end">
+                            
+
+                            <li class="social-icon-item">
+                                <a href="https://www.linkedin.com/company/marketing-directors-club/" class="social-icon-link">
+                                    <span class="bi-linkedin"></span>
+                                </a>
+                            </li>
+
+                            <li class="social-icon-item">
+                                <a href="https://www.instagram.com/marketingdirectorsclub_wou?igsh=amR2MmlqbGc4dzRk" class="social-icon-link">
+                                    <span class="bi-instagram"></span>
+                                </a>
+                            </li>
+
+                           
+
+                           
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-6 col-12 mb-4 pb-2">
+                    <h5 class="site-footer-title mb-3">Links</h5>
+
+                    <ul class="site-footer-links">
+                        <li class="site-footer-link-item">
+                            <a href="#" class="site-footer-link">Home</a>
+                        </li>
+
+                        <li class="site-footer-link-item">
+                            <a href="#" class="site-footer-link">About</a>
+                        </li>
+
+                        <li class="site-footer-link-item">
+                            <a href="#" class="site-footer-link">Events</a>
+                        </li>
+
+                        <li class="site-footer-link-item">
+                            <a href="#" class="site-footer-link">Schedule</a>
+                        </li>
+
+                        <li class="site-footer-link-item">
+                            <a href="#" class="site-footer-link">Tickets</a>
+                        </li>
+
+                        <li class="site-footer-link-item">
+                            <a href="#" class="site-footer-link">Contact</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-12 mb-4 mb-lg-0">
+                    <h5 class="site-footer-title mb-3">Have a question?</h5>
+
+                    <p class="text-white d-flex mb-1">
+                        <a href="tel: 090-080-0760" class="site-footer-link">
+                            0123456789
+                        </a>
+                    </p>
+
+                    <p class="text-white d-flex">
+                        <a href="mailto:hello@company.com" class="site-footer-link">
+                            hello@tarang.com
+                        </a>
+                    </p>
+                </div>
+
+                <div class="col-lg-3 col-md-6 col-11 mb-4 mb-lg-0 mb-md-0">
+                    <h5 class="site-footer-title mb-3">Location</h5>
+
+                    <p class="text-white d-flex mt-3 mb-2">
+                        Woxsen University, Hyderabad</p>
+
+                   
+                </div>
+            </div>
+        </div>
+
+        <div class="site-footer-bottom">
+            <div class="container">
+                <div class="row">
+
+                    <div class="col-lg-3 col-12 mt-5">
+                        <p class="copyright-text">Copyright © 2025 MDC</p>
+                        <p class="copyright-text">Created by: <a href="#">Rudra</a></p>
+                    </div>
+
+                    <div class="col-lg-8 col-12 mt-lg-5">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!--
+
+T e m p l a t e M o
+
+-->
+
+    <!-- JAVASCRIPT FILES -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/jquery.sticky.js"></script>
+    <script src="js/click-scroll.js"></script>
+    <script src="js/custom.js"></script>
+
+</body>
+
+</html>
